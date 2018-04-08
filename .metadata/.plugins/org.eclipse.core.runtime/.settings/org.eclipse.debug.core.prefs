@@ -1,0 +1,5 @@
+//org.eclipse.debug.core.PREFERRED_DELEGATES/org.eclipse.jdt.junit.launchconfig=org.eclipse.jdt.junit.launchconfig,debug,;
+//org.eclipse.debug.core.PREFERRED_DELEGATES/org.eclipse.jdt.launching.remoteJavaApplication=org.eclipse.jdt.launching.remoteJavaApplication,debug,;
+//org.eclipse.debug.core.PREFERRED_DELEGATES/scala.application=scala.application.new,debug,;
+eclipse.preferences.version=1
+org.eclipse.debug.core.PREF_DELETE_CONFIGS_ON_PROJECT_DELETE=false

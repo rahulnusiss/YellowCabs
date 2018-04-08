@@ -1,0 +1,4 @@
+
+object main {
+  var s123 = new SparkConfig()
+}
