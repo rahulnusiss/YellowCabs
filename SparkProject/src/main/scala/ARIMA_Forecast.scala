@@ -48,7 +48,7 @@ object TaxiARIMA {
         StructField("mon_short_name", StringType, true),
         StructField("wk_num", DoubleType, true),
         StructField("day_of_year", DoubleType, true),
-        StructField("day_of_mon", IntegerType, true),
+        StructField("day_of_mon", DoubleType, true),
         StructField("day_of_week", IntegerType, true),
         StructField("day_long_name", StringType, true),
         StructField("day_short_name", StringType, true),

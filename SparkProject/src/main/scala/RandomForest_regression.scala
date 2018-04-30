@@ -46,7 +46,7 @@ object random_gradient {
         StructField("mon_short_name", StringType, true),
         StructField("wk_num", DoubleType, true),
         StructField("day_of_year", DoubleType, true),
-        StructField("day_of_mon", IntegerType, true),
+        StructField("day_of_mon", DoubleType, true),
         StructField("day_of_week", IntegerType, true),
         StructField("day_long_name", StringType, true),
         StructField("day_short_name", StringType, true),
@@ -68,10 +68,9 @@ object random_gradient {
     val training_split = data.filter("ID <= 450")
     val testing_split = data.filter("ID > 450")
 
-	// Automatically identify categorical features, and index them.
-	// Set maxCategories so features with > 4 distinct values are treated as continuous.
+	// Assemble input columns
 	val assembler = new VectorAssembler()
-      .setInputCols(Array("rain", "snw", "temprature", "day_of_week", "mon_num"))
+      .setInputCols(Array("rain", "snw", "temprature", "day_of_week", "mon_num", "day_of_mon", "day_of_year"))
       .setOutputCol("features")
 
     val output_train = assembler.transform(training_split)

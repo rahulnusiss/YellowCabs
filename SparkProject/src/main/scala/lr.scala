@@ -43,7 +43,7 @@ object gradient {
         StructField("mon_short_name", StringType, true),
         StructField("wk_num", DoubleType, true),
         StructField("day_of_year", DoubleType, true),
-        StructField("day_of_mon", IntegerType, true),
+        StructField("day_of_mon", DoubleType, true),
         StructField("day_of_week", IntegerType, true),
         StructField("day_long_name", StringType, true),
         StructField("day_short_name", StringType, true),
@@ -59,20 +59,15 @@ object gradient {
       .option("inferSchema", "true")
       .schema(customSchema)
       .load("Taxi_Data.csv")
-
-    // df.createOrReplaceTempView("taxi")
-    //val df2 = df.filter("no_of_trips > 100000")
-    //df2.show()   
-    /**
-      * Logic for Conversions to the RDD Data Type
-      */
+   
+    // Splitting
     val training_split = df.filter("ID <= 450")
     val testing_split = df.filter("ID > 450")
 
     // Automatically identify categorical features, and index them.
     // Set maxCategories so features with > 4 distinct values are treated as continuous.
     val assembler = new VectorAssembler()
-        .setInputCols(Array("rain", "snw", "temprature", "day_of_week", "mon_num"))
+        .setInputCols(Array("rain", "snw", "temprature", "day_of_week", "mon_num", "day_of_mon" , "day_of_year"))
         .setOutputCol("features")
 
     val output_train = assembler.transform(training_split)
