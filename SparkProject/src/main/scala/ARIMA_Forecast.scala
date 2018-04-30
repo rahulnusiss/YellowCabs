@@ -78,12 +78,17 @@ object TaxiARIMA {
     val nar:Array[Double] = lines_vector.map(_.asInstanceOf[Double]).collect.toArray
     val nar_test:Array[Double] = lines_test.map(_.asInstanceOf[Double]).collect.toArray
     
-    // Fit ARIMA model on no of trips
+    // Build vector of double    
     val ts = Vectors.dense(nar)
-    val arimaModel = ARIMA.autoFit(ts)
+    // Fit ARIMA model on no of trips
+    // P, D, Q max values 2,1,2
+    val maxP:Int = 2
+    val maxD:Int = 1
+    val maxQ:Int = 2
+    val arimaModel = ARIMA.autoFit(ts, maxP, maxD, maxQ)
     println("coefficients: " + arimaModel.coefficients.mkString(","))
     val forecast = arimaModel.forecast(ts, 109)
-    println("forecast of next 20 observations: " + forecast.toArray.mkString("\n"))
+    println("forecast of next 109 observations: " + forecast.toArray.mkString("\n"))
 
     // Calculating MAPE
     var sum = 0.0
@@ -95,6 +100,12 @@ object TaxiARIMA {
       }
 
      println( "Value of MAPE: " + (sum/109) )
+
+     // ARIMA Orders
+     println( "Value of AR order: " + arimaModel.p )
+     println( "Value of Differencing order: " + arimaModel.d )
+     println( "Value of MA order: " + arimaModel.q )
+
 
      sc.stop()
   }
