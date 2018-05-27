@@ -56,12 +56,14 @@ object random_gradient {
         StructField("snw", IntegerType, true),
         StructField("ID", IntegerType, true)))
 
+	// Put HDFS for input from HDFS
     val data = sqlContext.read
       .format("com.databricks.spark.csv")
       .option("header", "true")
       .option("inferSchema", "true")
       .schema(customSchema)
       .load("Taxi_Data.csv")
+      // "hdfs://taxi/Taxi_Data.csv"
 
 
     // Split 80:20
@@ -103,16 +105,6 @@ object random_gradient {
 	  .setMetricName("rmse")
 	val rmse = evaluator.evaluate(predictions)
 	println("Root Mean Squared Error (RMSE) on test data = " + rmse)
-
-	// Select (prediction, true label) and compute test error.
-	val evaluator2 = new RegressionEvaluator()
-	  .setLabelCol("no_of_trips")
-	  .setPredictionCol("prediction")
-	  .setMetricName("r2")
-	val r2 = evaluator2.evaluate(predictions)
-	// R2 not showing correct result
-	println("R2 value on test data = " + r2)
-
 
 	val predValues:Array[Double] = predictions.select("prediction").rdd.map(_(0)).map(_.asInstanceOf[Double]).collect.toArray
 	val actualValues:Array[Double] = predictions.select("no_of_trips").rdd.map(_(0)).map(_.asInstanceOf[Double]).collect.toArray

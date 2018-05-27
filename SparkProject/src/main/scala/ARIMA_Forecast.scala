@@ -58,12 +58,14 @@ object TaxiARIMA {
         StructField("snw", IntegerType, true),
         StructField("ID", IntegerType, true)))
 
+	// Put HDFS for input from HDFS
     val df = sqlContext.read
       .format("com.databricks.spark.csv")
       .option("header", "true")
       .option("inferSchema", "true")
       .schema(customSchema)
       .load("Taxi_Data.csv")
+      // "hdfs://taxi/Taxi_Data.csv"
 
     // Split the data in training and test 80:20
     val df_train = df.filter("ID <= 450")
