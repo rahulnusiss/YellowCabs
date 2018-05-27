@@ -1,7 +1,7 @@
 # YellowCabs
 Big Data project: Yellow cabs analysis
 
-#Architecture
+# Architecture
 
 <div align="center">
 	<img src="https://github.com/rahulnusiss/YellowCabs/blob/master/Yellow_Cab_Arch.jpg?raw=true" width="1000" height="800"/><br><br>
